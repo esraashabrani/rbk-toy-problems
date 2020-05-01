@@ -11,3 +11,17 @@ Another example could be:
 
 { name: "Gelato", countryOfOrigin: "Italy", flavor: "Chocolate Chip" }
 */
+
+function FavoriteDessert(){
+	var object = {};
+    object.add = add
+	return object;
+}
+
+  var add = function(object){
+    this.object = object ;
+ }
+
+
+ var obj1 = FavoriteDessert()
+ obj1.add({ name: "Flan", ovenTemp: 350, prepTime: "25 minutes + 50 minutes chilling" })

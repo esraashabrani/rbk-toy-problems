@@ -1,3 +1,19 @@
+
+
+function each(coll, func) {
+  if(Array.isArray(coll)){
+    for(var i=0 ; i<coll.length ; i++){
+      func(coll[i],i)
+    }
+  }
+  else{
+    for(var key in coll){
+      func(coll[key],key)
+    }
+  }
+}
+
+
 /*
 1-Write a function called tallEnoughToRide  that takes an array of people objects, 
 and returns a an array of names of people who are greater than or equal to 48 inches in height.
@@ -36,6 +52,18 @@ I.e. If someone called your function with 10 objects
 */
 
 // your answer is here
+function tallEnoughToRide(array){
+  var result =[]
+    each(array, function(element){
+    if(element['heightInInches']>=48){
+      result.push(element['name']) 
+    }
+    
+  })
+  return result
+}
+
+
 
 /*
 2-Working off of the same data structure as tallEnoughToRide, 
@@ -51,3 +79,16 @@ tallestPerson(groupA); //"Kiana at 55 inches"
 */
 
 // your answer is here
+function tallestPerson(array){
+  var msg = " "
+    var max = array[0]['heightInInches']
+    each(array, function(element){
+    if(element['heightInInches'] > max){
+      max = element['heightInInches'] 
+      msg = element['name'] + " at " + max + " inches "
+    }
+    
+  })
+  return msg
+}
+

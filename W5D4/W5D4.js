@@ -1,3 +1,44 @@
+
+function each(coll, f) {
+  if (Array.isArray(coll)) {
+    for (var i = 0; i < coll.length; i++) {
+      f(coll[i], i);
+    }
+  } else {
+    for (var key in coll) {
+      f(coll[key], key);
+    }
+  }
+}
+
+function filter(array, predicate) {
+  var acc = [];
+  each(array, function(element, i) {
+    if (predicate(element, i)) {
+      acc.push(element);
+    }
+  });
+  return acc;
+}
+
+function map(array, func) {
+  var acc = [];
+  each(array, function(element, i) {
+    acc.push(func(element, i));
+  });
+  return acc;
+}
+
+function reduce(array, f, acc) {
+  if (acc === undefined) {
+    acc = array[0];
+    array = array.slice(1);
+  }
+  each(array, function(element, i) {
+    acc = f(acc, element, i);
+  });
+  return acc;
+}
 /*
 
 Exercise 1
@@ -51,7 +92,56 @@ Calling your function should result in:
 
 shoppingSummary(shoppingList); //"I got 3 items at $99.73"
 
+*/
+var shoppingList = [
+  {
+    item: "rice",
+    price: 12.75,
+    weightInPounds: 20
+  },
+  {
+    item: "chicken",
+    price: 6.99,
+    weightInPounds: 1.25
+  },
+  {
+    item: "cookware",
+    price: 79.99,
+    weightInPounds: 35
+  },
+  {
+    item: "celery",
+    price: 3.99,
+    weightInPounds: 2
+  },
+  {
+    item: "carrots",
+    price: 2.85,
+    weightInPounds: 2
+  },
+  {
+    item: "green beans",
+    price: 2.55,
+    weightInPounds: 2
+  }
+];
+function shoppingSummary(array){
+  var total = 0;
+  var count = 0;
+  for(var i=0 ; i<array.length ; i++){
+    
+       if(total>=100){
+         total = total - array[i-1]['price'];
+         break;
+       }
+       total = total + array[i]['price'];
+       count++;
 
+
+  }
+
+ return  "I got " + (count-1) + " items at $" + total
+}
 
 /*
 
@@ -97,4 +187,18 @@ Would return a new array with the following elements:
  */
 
 //your answer is here
+function removeMostExpensive(array){
+  var max = array[0]['price']
+  var temp = 0;
+    for(var i=0 ; i<array.length ; i++){
+    if(array[i]['price'] > max){
+       max = array[i]['price'];
+       temp = i;
+    }
+
+  }
+  delete array[temp]
+  //console.log(array[temp])
+  return array
+}
 
